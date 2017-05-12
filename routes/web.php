@@ -14,3 +14,27 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/about', function () {
+    return "HI about page";
+});
+
+Route::get('/contact', function () {
+    return "Hi i am contact";
+});
+
+Route::get('/post/{id}/{name}', function($id, $name){
+    return "$name this is number" . $id;
+});
+
+Route::get('admin/posts/example',array('as'=>'admin.home' ,function(){
+
+    $url = route('admin.home');
+
+    return "this url is $url";
+
+}));
+
+Route::group(['middleware' => ['web']], function () {
+
+});
