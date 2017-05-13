@@ -1,16 +1,22 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Laravel</title>
+@section('content')
 
-</head>
-<body>
-<div class="container">
-    <h1>Contact page</h1>
-</div>
-</body>
-</html>
+    <h1>contact Page</h1>
+
+    @if(count($people))
+
+        <ul>
+        @foreach($people as $name)
+
+           <li>{{$name}}</li>
+
+        @endforeach
+
+        </ul>
+    @endif
+@stop
+
+@section('footer')
+    {{--<script>alert("hello visitor")</script>--}}
+@stop
