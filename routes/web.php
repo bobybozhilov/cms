@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\DB;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,7 +37,28 @@ Route::get('/', function () {
 //
 //}));
 
-Route::get('post/{id}/{name}/{password}','PostsController@show_post');
+Route::get('/insert', function () {
+    DB::insert('INSERT INTO posts(title, content, created_at, updated_at) VALUES(?,?,?,?)', ['PHP with laravel', 'Laravel is cool', Carbon\Carbon::now(), Carbon\Carbon::now()]);
+});
+
+Route::get('/read', function () {
+    $results = DB::select('SELECT * FROM posts WHERE id = ?', [1]);
+    foreach ($results as $post) {
+        return $post->title;
+    }
+
+});
+
+Route::get('update', function () {
+    $updated = DB::update('UPDATE posts SET title = "update table" WHERE id = ?', [1]);
+    return $updated;
+});
+
+Route::get('delete', function () {
+    $deleted = DB::delete('DELETE FROM posts WHERE id = ?', [2]);
+});
+
+Route::get('post/{id}/{name}/{password}', 'PostsController@show_post');
 
 Route::resource('/post', 'PostsController');
 
