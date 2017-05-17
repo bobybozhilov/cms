@@ -1,6 +1,9 @@
 <?php
 
 use App\Post;
+use App\Role;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +16,38 @@ use App\Post;
 |
 */
 
-Route::get('/', function () {
+Route ::get('/', function () {
     return view('welcome');
 });
 
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT Relationships
+|--------------------------------------------------------------------------
+*/
+
+//// One to One relationship
+//Route::get('user/{id}/post', function ($id) {
+//    return User::find($id)->post->title;
+//});
+//
+////inverse relationship
+//Route::get('post/{id}/user', function ($id) {
+//    return Post::find($id)->user->name;
+//});
+//
+////One to Many relationship
+//Route ::get('/posts', function () {
+//    $user = User ::find(1);
+//
+//    foreach ($user -> posts as $post) {
+//        echo $post -> title . '<br>';
+//    }
+//});
+
+//Route ::get('/', function () {
+//
+//});
 
 /*
  * ELOQUENT
@@ -49,7 +80,6 @@ Route::get('/', function () {
 //Route::get('/delete2', function () {
 //    Post::destroy([4,5]);
 //});
-
 //Route::get('/update', function () {
 //
 //    Post::where('id', 2)->where('is_admin', 0)->update(['title'=>'new title', 'content'=>'new content']);
@@ -142,6 +172,28 @@ Route::get('/', function () {
 //
 //Route::get('/contact', 'PostsController@contact');
 
-Route::group(['middleware' => ['web']], function () {
+
+Route ::get('/insert/user/{name}/{email}/{password}', function ($name, $email, $password) {
+    $user = new User;
+    $user -> name = $name;
+    $user -> email = $email;
+    $user -> password = Hash ::make($password);
+    $user -> save();
+});
+
+Route ::get('/user/{id}/role', function ($id) {
+    $user = User::find($id);
+    /*//return all records with role.id = $id
+    $user = Role ::find($id) -> roles() -> orderBy('id', 'desc') -> get();
+    return $user;
+    */
+    echo $user->name;
+    echo ": ";
+    foreach ($user -> roles as $role) {
+        echo $role -> name;
+        echo ", ";
+    }
+});
+Route ::group(['middleware' => ['web']], function () {
 
 });
