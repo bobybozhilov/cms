@@ -4,13 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Country extends Model
 {
+
     protected $fillable = [
         'name'
     ];
 
-    public function users() {
-        return $this->belongsToMany('App\User');
+    public function posts(){
+
+        return $this->hasManyThrough('App\Post', 'App\User');
     }
 }

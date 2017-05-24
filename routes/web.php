@@ -1,5 +1,6 @@
 <?php
 
+use App\Country;
 use App\Post;
 use App\Role;
 use App\User;
@@ -173,27 +174,50 @@ Route ::get('/', function () {
 //Route::get('/contact', 'PostsController@contact');
 
 
-Route ::get('/insert/user/{name}/{email}/{password}', function ($name, $email, $password) {
-    $user = new User;
-    $user -> name = $name;
-    $user -> email = $email;
-    $user -> password = Hash ::make($password);
-    $user -> save();
-});
+//Route ::get('/insert/user/{name}/{email}/{password}', function ($name, $email, $password) {
+//    $user = new User;
+//    $user -> name = $name;
+//    $user -> email = $email;
+//    $user -> password = Hash ::make($password);
+//    $user -> save();
+//});
+//
+//Route ::get('/user/{id}/role', function ($id) {
+//    $user = User::find($id);
+//    /*//return all records with role.id = $id
+//    $user = Role ::find($id) -> roles() -> orderBy('id', 'desc') -> get();
+//    return $user;
+//    */
+//    echo $user->name;
+//    echo ": ";
+//    foreach ($user -> roles as $role) {
+//        echo $role -> name;
+//        echo ", ";
+//    }
+//});
 
-Route ::get('/user/{id}/role', function ($id) {
-    $user = User::find($id);
-    /*//return all records with role.id = $id
-    $user = Role ::find($id) -> roles() -> orderBy('id', 'desc') -> get();
-    return $user;
-    */
-    echo $user->name;
-    echo ": ";
-    foreach ($user -> roles as $role) {
-        echo $role -> name;
+
+Route::get('/user/country/{id}',function($id){
+    $country = Country::find($id);
+
+    foreach ($country->posts as $post) {
+
+        echo $post->title;
         echo ", ";
     }
 });
+
+Route::get('user/pivot/{id}',function($id){
+   $user = User::find($id);
+
+   foreach ($user->roles as $role){
+
+       echo $role->pivot->created_at;
+
+   }
+});
+
+
 Route ::group(['middleware' => ['web']], function () {
 
 });
