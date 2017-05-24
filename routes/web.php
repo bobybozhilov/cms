@@ -4,6 +4,7 @@ use App\Country;
 use App\Photo;
 use App\Post;
 use App\Role;
+use App\Tag;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -211,25 +212,44 @@ Route ::get('/', function () {
 //
 //   }
 //});
-Route ::get('user/{id}/photos', function ($id) {
-    $user = User ::find($id);
-    foreach ($user -> photos as $photo) {
-        echo $photo->path . "<br>";
+//Route ::get('user/{id}/photos', function ($id) {
+//    $user = User ::find($id);
+//    foreach ($user -> photos as $photo) {
+//        echo $photo -> path . "<br>";
+//    }
+//});
+//
+//Route ::get('post/{id}/photos', function ($id) {
+//    $post = Post ::find($id);
+//    foreach ($post -> photos as $photo) {
+//        return $photo -> path . "<br>";
+//    }
+//});
+//
+//Route ::get('photo/{id}', function ($id) {
+//    $photo = Photo ::findOrFail($id);
+//
+//    return $photo -> imageable;
+//});
+//
+//Route ::get('/post/tag/{id}', function ($id) {
+//    $post = Post ::find($id);
+//
+//    foreach ($post -> tags as $tag) {
+//
+//        echo $tag->title;
+//    }
+//});
+
+Route ::get('tag/post/{id}', function ($id) {
+    $tag = Tag ::find($id);
+
+    foreach ($tag -> posts as $post) {
+
+        echo $post -> title;
     }
 });
 
-Route ::get('post/{id}/photos', function ($id) {
-    $post = Post ::find($id);
-    foreach ($post -> photos as $photo) {
-        return $photo->path . "<br>";
-    }
-});
-
-Route::get('photo/{id}', function($id){
-   $photo = Photo::findOrFail($id);
-
-   return $photo->imageable;
-});
 
 Route ::group(['middleware' => ['web']], function () {
 

@@ -20,8 +20,8 @@ class PostsTableSeeder extends Seeder
                            'is_admin' => '0'
                           ],
 
-                          ['title' => 'second Post',
-                           'content' => 'seconds post content lore...',
+                          ['title' => 'javascript Post',
+                           'content' => 'JS seconds post content lore...',
                            'created_at' => Carbon ::now(),
                            'updated_at' => Carbon ::now(),
                            'is_admin' => '0'

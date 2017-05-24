@@ -17,16 +17,18 @@ class Post extends Model
         'content',
     ];
 
-
-    /**
-     * @return BelongsTo  User related to given Post
-     *
-     */
     public function user() {
+
         return $this -> belongsTo('App\User');
     }
 
-    public function  photos() {
-        return $this->morphMany('App\Photo','imageable');
+    public function photos() {
+
+        return $this -> morphMany('App\Photo', 'imageable');
+    }
+
+    public function tags() {
+
+        return $this -> morphToMany('App\Tag', 'taggable');
     }
 }
