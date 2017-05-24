@@ -1,6 +1,7 @@
 <?php
 
 use App\Country;
+use App\Photo;
 use App\Post;
 use App\Role;
 use App\User;
@@ -45,15 +46,12 @@ Route ::get('/', function () {
 //        echo $post -> title . '<br>';
 //    }
 //});
-
 //Route ::get('/', function () {
 //
 //});
-
 /*
  * ELOQUENT
  */
-
 //Route::get('/forcedelete', function () {
 //
 //    Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
@@ -111,7 +109,6 @@ Route ::get('/', function () {
 //    $posts = \App\Post::where('id', 2)->orderBy('id','desc')->take(1)->get();
 //    return $posts;
 //});
-
 //
 //Route::get('/read', function() {
 //    $posts = App\Post::all();
@@ -172,8 +169,6 @@ Route ::get('/', function () {
 //Route::resource('/post', 'PostsController');
 //
 //Route::get('/contact', 'PostsController@contact');
-
-
 //Route ::get('/insert/user/{name}/{email}/{password}', function ($name, $email, $password) {
 //    $user = new User;
 //    $user -> name = $name;
@@ -195,28 +190,46 @@ Route ::get('/', function () {
 //        echo ", ";
 //    }
 //});
-
-
-Route::get('/user/country/{id}',function($id){
-    $country = Country::find($id);
-
-    foreach ($country->posts as $post) {
-
-        echo $post->title;
-        echo ", ";
+//
+//
+//Route::get('/user/country/{id}',function($id){
+//    $country = Country::find($id);
+//
+//    foreach ($country->posts as $post) {
+//
+//        echo $post->title;
+//        echo ", ";
+//    }
+//});
+//
+//Route::get('user/pivot/{id}',function($id){
+//   $user = User::find($id);
+//
+//   foreach ($user->roles as $role){
+//
+//       echo $role->pivot->created_at;
+//
+//   }
+//});
+Route ::get('user/{id}/photos', function ($id) {
+    $user = User ::find($id);
+    foreach ($user -> photos as $photo) {
+        echo $photo->path . "<br>";
     }
 });
 
-Route::get('user/pivot/{id}',function($id){
-   $user = User::find($id);
-
-   foreach ($user->roles as $role){
-
-       echo $role->pivot->created_at;
-
-   }
+Route ::get('post/{id}/photos', function ($id) {
+    $post = Post ::find($id);
+    foreach ($post -> photos as $photo) {
+        return $photo->path . "<br>";
+    }
 });
 
+Route::get('photo/{id}', function($id){
+   $photo = Photo::findOrFail($id);
+
+   return $photo->imageable;
+});
 
 Route ::group(['middleware' => ['web']], function () {
 

@@ -32,17 +32,21 @@ class User extends Authenticatable
     ];
 
     public function post() {
+
         return $this -> hasOne('App\Post');
     }
 
     public function posts() {
+
         return $this -> hasMany('App\Post');
     }
 
-    public function roles(){
-        return $this->belongsToMany('App\Role')->withPivot('created_at');
-
+    public function roles() {
+        return $this -> belongsToMany('App\Role') -> withPivot('created_at');
         //To customize table names and columns
         // return $this->belongsToMany('App\Role','user_roles','user_id','role_id');
+    }
+    public function  photos() {
+        return $this->morphMany('App\Photo','imageable');
     }
 }

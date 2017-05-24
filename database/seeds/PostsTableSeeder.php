@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class PostsTableSeeder extends Seeder
@@ -9,8 +10,22 @@ class PostsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        //
+    public function run() {
+        DB ::table('posts')
+            -> insert([
+                          ['title' => 'first Post',
+                           'content' => 'first post content lorem ipsum...',
+                           'created_at' => Carbon ::now(),
+                           'updated_at' => Carbon ::now(),
+                           'is_admin' => '0'
+                          ],
+
+                          ['title' => 'second Post',
+                           'content' => 'seconds post content lore...',
+                           'created_at' => Carbon ::now(),
+                           'updated_at' => Carbon ::now(),
+                           'is_admin' => '0'
+                          ],
+                      ]);
     }
 }

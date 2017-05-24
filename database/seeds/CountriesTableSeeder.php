@@ -15,10 +15,26 @@ class CountriesTableSeeder extends Seeder
         //Add records to Countries table
         DB ::table('countries')
             -> insert([
-                          ['name' => 'Bulgaria', 'created_at' => Carbon ::now(), 'updated_at' => Carbon ::now()],
-                          ['name' => 'Russia', 'created_at' => Carbon ::now(), 'updated_at' => Carbon ::now()],
-                          ['name' => 'USA', 'created_at' => Carbon ::now(), 'updated_at' => Carbon ::now()],
-                          ['name' => 'UK', 'created_at' => Carbon ::now(), 'updated_at' => Carbon ::now()],
+                          [
+                              'name'       => 'Bulgaria',
+                              'created_at' => Carbon ::now(),
+                              'updated_at' => Carbon ::now(),
+                          ],
+                          [
+                              'name'       => 'Russia',
+                              'created_at' => Carbon ::now(),
+                              'updated_at' => Carbon ::now(),
+                          ],
+                          [
+                              'name'       => 'USA',
+                              'created_at' => Carbon ::now(),
+                              'updated_at' => Carbon ::now(),
+                          ],
+                          [
+                              'name'       => 'UK',
+                              'created_at' => Carbon ::now(),
+                              'updated_at' => Carbon ::now(),
+                          ],
                       ]);
     }
 }
