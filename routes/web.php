@@ -28,7 +28,7 @@ Route ::get('/', function () {
 | ELOQUENT Relationships
 |--------------------------------------------------------------------------
 */
-
+//
 //// One to One relationship
 //Route::get('user/{id}/post', function ($id) {
 //    return User::find($id)->post->title;
@@ -240,17 +240,16 @@ Route ::get('/', function () {
 //        echo $tag->title;
 //    }
 //});
+//
+//Route ::get('tag/post/{id}', function ($id) {
+//    $tag = Tag ::find($id);
+//
+//    foreach ($tag -> posts as $post) {
+//
+//        echo $post -> title;
+//    }
+//});
 
-Route ::get('tag/post/{id}', function ($id) {
-    $tag = Tag ::find($id);
+Route::resource('/posts', 'PostsController');
 
-    foreach ($tag -> posts as $post) {
-
-        echo $post -> title;
-    }
-});
-
-
-Route ::group(['middleware' => ['web']], function () {
-
-});
+Route ::group(['middleware' => ['web']], function () {});

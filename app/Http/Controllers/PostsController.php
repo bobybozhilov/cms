@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -11,10 +12,13 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {
-        //
-        return "its working $id";
+    public function index() {
+        $posts = Post ::all();
+
+        return view('posts.index', compact('posts'));
+//        $posts = Post::get('title','content','user_id');
+//        return view('posts.index', compact('posts'));
+        //return $title . ': ' . $content;
     }
 
     /**
@@ -22,77 +26,100 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
-        return "This is the method that creates stuff";
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+//        return $request->all();
+//        return $request->get('title');
+//
+        Post ::create($request -> all());
+
+        return redirect('/posts');
+
+
+//        $input['title'] = $request->title;
+//        Post::create($request->title);
+//        $post = new Post();
+//        $post->title =  $request->title;
+//        $post->user_id = 1;
+//        $post->save();
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-        return "this is the show method $id";
+    public function show($id) {
+        $post = Post ::findOrFail($id);
+
+        return view('posts.show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+        $post = Post ::findOrFail($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+
+        $post = Post ::findOrFail($id);
+        $post -> update($request -> all());
+
+        return redirect('/posts');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        $post = Post ::whereId($id)->delete();
+
+        return redirect('/posts');
     }
 
-    public function  contact() {
+    public function contact() {
 
         $people = ['Edwin', 'Jose', 'James', 'Sasho'];
+
         return view('contact', compact('people'));
     }
 
-    public function  show_post($id,$name, $password) {
-        return view('post',compact('id','name', 'password'));
+    public function show_post($id, $name, $password) {
+        return view('post', compact('id', 'name', 'password'));
 //        return view('post')->with('id',$id);
 
     }
